@@ -4,8 +4,10 @@ from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.views import generic
+from django.http import Http404
 
-from .models import Choice, Question
+
+from .models import Choice, Question,Voter
 
 class IndexView(generic.ListView):
     template_name = 'polls/index.html'
@@ -29,19 +31,26 @@ class ResultsView(generic.DetailView):
 
 @login_required
 def vote(request, question_id):
-
-
+    if Voter.objects.filter(question_id=question_id, user_id=request.user.id).exists():
         question = get_object_or_404(Question, pk=question_id)
-        try:
-            selected_choice = question.choice_set.get(pk=request.POST['choice'])
-        except (KeyError, Choice.DoesNotExist):
-
-            return render(request, 'polls/detail.html', {
+        return render(request, 'polls/detail.html', {
                 'question': question,
-                'error_message': "You didn't select a choice.",
+                'error_message': "Sorry, but you have already voted."
             })
-        else:
-            selected_choice.votes += 1
-            selected_choice.save()
 
-            return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+    else:
+            question = get_object_or_404(Question, pk=question_id)
+            try:
+                selected_choice = question.choice_set.get(pk=request.POST['choice'])
+            except (KeyError, Choice.DoesNotExist):
+
+                return render(request, 'polls/detail.html', {
+                    'question': question,
+                    'error_message': "You didn't select a choice.",
+                })
+            else:
+                    selected_choice.votes += 1
+                    selected_choice.save()
+                    Voter.objects.create(question_id=question_id, user_id=request.user.id)
+
+                    return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))

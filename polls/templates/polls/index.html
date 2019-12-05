@@ -5,19 +5,41 @@
 {% block content %}
         {% if latest_question_list %}
             <ul>
+                <h1>Department-wise Poll</h1>
                 {% for question in latest_question_list %}
-                <div>
 
-                     <div class="container">
-                         <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
-                    <div class="content-section">
-                      <div class="media">
-                        <img class="rounded-circle account-img" src="{{ question.image.url }}">
 
-                      </div>
-                    </div>
-                </div>
-                </div>
+                     {% if question.department == user.profile.department %}
+                        <div>
+
+                             <div class="container">
+
+                                 <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+                            <div class="content-section">
+                              <div class="media">
+                                <img class="rounded-circle account-img" src="{{ question.image.url }}">
+
+                              </div>
+                            </div>
+                        </div>
+                        </div>
+                   {% endif %}
+                 {% endfor %}
+                <h1>Club-wise Poll</h1>
+                   {% for question in latest_question_list %}
+                       {% if question.club == user.profile.club %}
+                           <div class="container">
+
+                                     <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+                                <div class="content-section">
+                                  <div class="media">
+                                    <img class="rounded-circle account-img" src="{{ question.image.url }}">
+
+                                  </div>
+                                </div>
+                            </div>
+                            </div>
+                     {% endif %}
 
                 {% endfor %}
             </ul>
