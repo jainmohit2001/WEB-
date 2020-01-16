@@ -6,7 +6,7 @@ from blog.models import Product, Variation
 class CartItem(models.Model):
     cart = models.ForeignKey('Cart', related_name="cart_items", on_delete=models.CASCADE)
     product = models.ForeignKey(Product, related_name="product", on_delete=models.CASCADE)
-    variations = models.ManyToManyField(Variation, null=True, blank=True)
+    variations = models.ManyToManyField(Variation, blank=True)
     quantity = models.IntegerField(default=1)
     line_total = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
 

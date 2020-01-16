@@ -1,0 +1,25 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <form action="{% url 'checkout' %}" method="post" >
+    {% csrf_token %}
+           {% for address in user.addresses.all %}
+               <input type="radio" name="address" value="{{ address.id }}">
+                    <div class="col-md-7 " >
+                    <h4> {{ address.name }}</h4>
+                    <p> {{ address.house_no }} , {{ address.area }} </p>
+                    {% if address.landmark %}
+                        <p>{{address.landmark }}</p>
+                    {% endif %}
+                    <p> {{ address.city }}</p>
+                    <p>{{ address.state }} - {{ address.zip }}</p>
+                    <p>Phone-Number: {{ address.mobile_no }} {% if address.alternate_no %} , {{ address.alternate_no }}{% endif %}
+                    </p><a href="{% url 'edit_address' address.id %}">Edit address</a><br>
+                    <a href = "{% url 'remove_address' address.id %}"> Remove address </a>
+                    </div>
+           {% endfor %}
+    <button class="btn"> <a href="{% url 'new_address' %}"> Another address</a></button>
+    <input type="submit" value="Pay">
+    </form>
+
+{% endblock %}

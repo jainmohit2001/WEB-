@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'orders.apps.OrdersConfig',
     'polls.apps.PollsConfig',
     'cart.apps.CartConfig',
     'blog.apps.BlogConfig',
@@ -142,3 +143,8 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = 'blog:product-home'
 LOGIN_URL = 'login'
+
+
+STRIPE_SECRETE_KEY = "sk_test_2Y6tVIOsVwdZcGAmhS9wSNQ500ooATeoev"
+STRIPE_PUBLISHABLE_KEY = "pk_test_otwQpOtGY04J2nnL2InMRh7q00Yuk9FtdN"
+
