@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
-import datetime
+from datetime import datetime, timedelta
 from PIL import Image
 
 DEPARTMENTS = (
@@ -55,14 +54,19 @@ class Question(models.Model):
     department = models.CharField(max_length=120, choices=DEPARTMENTS, default='None')
     club = models.CharField(max_length=120, choices=CLUBS, default='None')
     image = models.ImageField( default='default.jpg', upload_to='images/')
-    pub_date = models.DateTimeField('date published')
+    pub_date = models.DateTimeField(auto_now_add=True)
+    status = models.BooleanField(default=True)
+
+
 
     def __str__(self):
         return self.question_text
 
     def was_published_recently(self):
-        now = timezone.now()
+        now = datetime.now()
         return now - datetime.timedelta(days=1) <= self.pub_date <= now
+
+
 
     def save(self, *args, **kwargs):
             super().save(*args, **kwargs)

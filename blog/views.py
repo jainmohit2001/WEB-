@@ -15,14 +15,6 @@ def search(request):
     return render(request, 'blog/result.html', context)
 
 
-def home(request):
-    return render(request, 'blog/home.html', {'title': 'Home'})
-
-
-def about(request):
-    return render(request, 'blog/about.html', {'title': 'About'})
-
-
 def product_list(request, category_slug=None):
     category = None
     categories = Category.objects.all()

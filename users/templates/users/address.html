@@ -2,10 +2,14 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
-<form action="{% url 'new_address' %}" method="POST" >
-{% csrf_token %}
-{{ form|crispy }}
-<input value="Save Address" type="submit">
-</form>
+<div id = "wrapper1" class="container col-md-5">
+
+    <form action="{% url 'new_address' %}" method="POST" >
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input value="Save Address" class="btn btn-primary mb-2" type="submit">
+
+    </form>
+</div>
 
 {% endblock %}

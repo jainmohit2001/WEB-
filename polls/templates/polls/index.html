@@ -1,5 +1,7 @@
 {% extends "blog/base.html" %}
 {% load static %}
+{% load tz %}
+
 
 <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
 {% block content %}
@@ -23,10 +25,12 @@
                             </div>
                         </div>
                         </div>
-                   {% endif %}
+
+                {% endif %}
                  {% endfor %}
                 <h1>Club-wise Poll</h1>
                    {% for question in latest_question_list %}
+
                        {% if question.club == user.profile.club %}
                            <div class="container">
 
@@ -39,8 +43,8 @@
                                 </div>
                             </div>
                             </div>
-                     {% endif %}
 
+   {% endif %}
                 {% endfor %}
             </ul>
         {% else %}

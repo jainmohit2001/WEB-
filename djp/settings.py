@@ -44,6 +44,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_cleanup',
+    'django.contrib.sites',
+    # ALL AUTH
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.facebook',
 ]
 
 MIDDLEWARE = [
@@ -90,6 +97,7 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
+SITE_ID = 1
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -143,7 +151,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = 'blog:product-home'
 LOGIN_URL = 'login'
-
+USF_FORMAT='usf_timestamp'
 
 STRIPE_SECRETE_KEY = "sk_test_2Y6tVIOsVwdZcGAmhS9wSNQ500ooATeoev"
 STRIPE_PUBLISHABLE_KEY = "pk_test_otwQpOtGY04J2nnL2InMRh7q00Yuk9FtdN"

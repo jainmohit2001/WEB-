@@ -2,55 +2,54 @@
 {% load static %}
 
 {% block content %}
-   <div class="container">
-      <div class="row" style="margin-top: 6%">
-
-        <div class="col-sm-8 blog-main">
-
-          <div class="blog-post">
-              <div class="row">
-                <div>
-                    <div>
-                        <div class="col-md-6 text-right">
-                            <img src="{% if product.image %} {{ product.image.url }} {% else %} {% static 'img/default.png' %} {% endif %}" alt="..." style="width: 100%; height: auto">
-                        </div>
-                        <div class="col-md-6" style="padding-left: 20px">
-                            <h3>{{ product.name }}</h3>
-                            <h6><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h6>
-                            <p class="text-muted"> {{ product.price }} Rupees</p>
-                            <p>{{ product.description|safe|linebreaksbr }}</p>
-                            <form class="form pull-right" method='POST' action='{% url 'add_to_cart' product.slug %}'>{% csrf_token %}
-                                <input name="qty" type='number' value="1" min="1" >
-
-                            {% if product.variations.all %}
-                                {% if product.variations.sizes %}
-                                    <select name="size" class="form-control">
+    <br>
+    <br>
+    <div class="row">
+    <div class= "col-md-2"></div>
+    <div class="col-md-8">
+   <div class="card mb-3" style="width: 60rem;background: transparent; border: none">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <img class="rounded" src="{% if product.image %} {{ product.image.url }} {% else %} {% static 'img/default.png' %} {% endif %}" alt="..." style="width: 100%; height: auto">
+            </div>
+            <div class="col-md-8" style="padding-left: 20px">
+                <div class="card-body">
+                    <h3>{{ product.name }}</h3>
+                    <h6><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h6>
+                    <p class="text-muted"> {{ product.price }} Rupees</p>
+                    <p>{{ product.description|safe|linebreaksbr }}</p>
+                    <form class="form pull-right" method='POST' action='{% url 'add_to_cart' product.slug %}'>{% csrf_token %}
+                        <input class="form-control" name="qty" type='number' value="1" min="1" >
+                            <br>
+                        {% if product.variations.all %}
+                            {% if product.variations.sizes %}
+                                <select name="size" class="form-control">
                                     {% for item in product.variations.sizes %}
                                         <option value="{{ item.title|lower }}">{{ item.title|capfirst }}</option>
+
                                     {% endfor %}
+
                                 </select>
+                                <br>
                                 {% endif %}
                                 {% if product.variations.colors %}
                                     <select name="color" class="form-control">
                                     {% for item in product.variations.colors %}
-                                        <option value="{{ item.title|lower }}">{{ item.title|capfirst }}</option>
+                                        <option value="{{ item.title|lower }}">{{ item.title|capfirst }}<br></option>
+
                                     {% endfor %}
+
                                 </select>
+                                    <br>
                                 {% endif %}
                             {%  endif %}
                                 <input type="submit" value="Add to Cart">
                             </form>
 
-                        </div>
-                    </div>
                 </div>
-              </div>
-
-
-          </div><!-- /.blog-post -->
-
-        </div><!-- /.blog-main -->
-      </div><!-- /.row -->
-
-    </div><!-- /.container -->
+            </div>
+        </div>
+   </div>
+   </div>
+    </div>
 {% endblock %}

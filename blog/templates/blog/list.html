@@ -1,7 +1,7 @@
 {% extends "blog/base.html" %}
 {% load static %}
 {% block content %}
-<div class="container-fluid">
+{% comment %}<div class="container-fluid">
       <div class="row" style="margin-top: 6%">
 
         <div class="col-sm-8 blog-main">
@@ -47,5 +47,62 @@
 
       </div><!-- /.row -->
 
-    </div><!-- /.container -->
+    </div><!-- /.container -->{% endcomment %}
+    <br>
+              <br>
+<div class="container" style="margin-left: 2%; margin-right: 2%; max-width: 95%">
+    <div class="row">
+
+               <div  class="col-lg-2" style="margin-bottom: auto">
+
+            <h4 style="text-align:center;" >Categories</h4>
+
+            <ul style="list-style-type:none;" class="list-group text-center">
+              <li style="background: transparent; margin-bottom: 0.4rem" {% if not category %} class="list-group-item mb-2"{% endif %}><a  href="{% url 'blog:product_list' %}">All</a></li>
+
+            {% for c in categories %}
+
+              <li style="background: transparent; margin-bottom: 0.4rem" {% if category.slug == c.slug %} class="list-group-item mb-2"{% endif %}>
+
+                  <a  href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+              </li>
+            {% endfor %}
+            </ul>
+ <br>
+
+        <br>
+               </div>
+
+
+    <div class="col-lg-10">
+              <div class="row" style="margin-left: 0;margin-right: 0">
+
+
+                  {% for product in products %}
+                      <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 mb-4">
+
+                              <div class="card" style="height: 100%">
+                                 <a href="{{ product.get_absolute_url }}">
+                                 <div class="img-hover-zoom">
+                                     <div class="product-img-div">
+                                   <img class="product-img" src="{% if product.image %} {{ product.image.url }} {% else %} {% static 'img/default.png' %} {% endif %}" alt="..." >
+                                         </div>
+                                 </div>
+
+                                 </a>
+                                <div class="card-body">
+                                  <h5 class="card-title" style="align-content: center" > <a style="color: #ff1493" href="{{ product.get_absolute_url }}">{{ product.name }}</a></h5>
+{#                                   <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>#}
+                                    <h5 class="card-title"> {{ product.price }} Rupees</h5>
+                                </div>
+                              </div>
+
+                      <br>
+                      </div>
+                  {% endfor %}
+              </div>
+
+</div>
+    </div>
+    </div>
 {% endblock content %}

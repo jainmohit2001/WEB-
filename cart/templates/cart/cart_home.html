@@ -1,12 +1,16 @@
 {% extends "blog/base.html" %}
 {% block content %}
-
+<br>
     {% if empty %}
-    <h1 style="'text-align:center"> {{ empty_message }}</h1>
+    <h1 style="text-align:center"> {{ empty_message }}</h1>
     {% else %}
-    <div class="col-sm-8 col-sm-offset-2">
-        <table class="table">
-            <thead>
+         <div class="row">
+        <div class="col-sm-2"></div>
+    <div class="col-sm-8 col-sm-offset-2" style="border:1px solid black;border-radius: 5px;box-shadow: 5px 10px #888888" >
+    <h1 style="text-align:center;color: #702963 " >Your Cart</h1>
+    <br>
+        <table class="table"  border=1 frame=void rules=rows style="border-bottom:3px solid #333333;">
+            <thead style="border-bottom:3px solid #333333">
                 <th>Item</th>
                 <th>Price</th>
                 <th>Quantity</th>
@@ -15,7 +19,7 @@
             </thead>
             <tfoot>
                 <tr>
-                    <td></td>
+                    <td > <a class= "button" href='{% url "checkout" %}'> Checkout</a></td>
                     <td></td>
                     <td></td>
                     <td> Total : {{ cart.total }}</td>
@@ -26,7 +30,7 @@
                 {% if item.variations.all %}
                     <ul>
                         {% for subitem in item.variations.all %}
-                            <li>{{ subitem.category|capfirst }} : {{ subitem.title|capfirst }}</li>
+                            <li style="color: deeppink">{{ subitem.category|capfirst }} : {{ subitem.title|capfirst }}</li>
                         {% endfor %}
                     </ul>
                 {% endif %}
@@ -38,8 +42,11 @@
         </tr>
     {% endfor %}
     </table>
-    <a href='{% url "checkout" %}'> Checkout</a>
+
+
+
     </div>
+         </div>
     {% endif %}
 
 {% endblock %}

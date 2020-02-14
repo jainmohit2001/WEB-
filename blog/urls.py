@@ -5,7 +5,6 @@ app_name = 'blog'
 
 urlpatterns = [
     path('', views.product_list, name='product-home'),
-    path('about/', views.about, name='product-about'),
     path('s/', views.search, name='search'),
     path('', views.product_list, name='product_list'),
     re_path(r'^(?P<category_slug>[-\w]+)/$', views.product_list, name='product_list_by_category'),

@@ -9,14 +9,7 @@ class ChoiceInline(admin.StackedInline):
 
 
 class QuestionAdmin(admin.ModelAdmin):
-    fieldsets = [
-        (None,               {'fields': ['question_text']}),
-        ('Image',{'fields':['image']}),
-        ('Club',{'fields':['club']}),
-
-        ('Department', {'fields': ['department']}),
-        ('Date information', {'fields': ['pub_date'], 'classes': ['collapse']}),
-    ]
+    readonly_fields = ['pub_date',]
     inlines = [ChoiceInline]
 
 admin.site.register(Question, QuestionAdmin)
