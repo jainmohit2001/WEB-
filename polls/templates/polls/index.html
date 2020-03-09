@@ -2,53 +2,63 @@
 {% load static %}
 {% load tz %}
 
-
-<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
 {% block content %}
-        {% if latest_question_list %}
-            <ul>
-                <h1>Department-wise Poll</h1>
-                {% for question in latest_question_list %}
+{% if latest_question_list %}
 
+<h1 class="text-center mb-4">Department-wise Poll</h1>
+<div class="container">
+    <div class="row">
+        {% for question in latest_question_list %}
+        {% if question.department == user.profile.department %}
 
-                     {% if question.department == user.profile.department %}
-                        <div>
+        <div class="col-lg-3 col-md-4 col-sm-10 mx-auto">
+            <div class="card mx-auto shadow-sm mb-3">
+                <div class="col-sm-12">
+                    <img class="img-fluid " src="{{ question.image.url }}">
+                </div>
+                <div class="card-body text-dark">
+                    <h5 class=" py-3 mb-2 rounded text-center">{{ question.question_text }}</h5>
+                    <p class="card-text">Quick sample text to create the card title and make up the body of the card's
+                        content.</p>
 
-                             <div class="container">
+                    <p class="text-center"><a href="{% url 'polls:detail' question.id %}">Click here to vote</a></p>
+                    <p class="text-center"><a href="{% url 'polls:results' question.id %}">Click here to view Results </a> </p>
+                </div>
+            </div>
+        </div>
 
-                                 <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
-                            <div class="content-section">
-                              <div class="media">
-                                <img class="rounded-circle account-img" src="{{ question.image.url }}">
-
-                              </div>
-                            </div>
-                        </div>
-                        </div>
-
-                {% endif %}
-                 {% endfor %}
-                <h1>Club-wise Poll</h1>
-                   {% for question in latest_question_list %}
-
-                       {% if question.club == user.profile.club %}
-                           <div class="container">
-
-                                     <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
-                                <div class="content-section">
-                                  <div class="media">
-                                    <img class="rounded-circle account-img" src="{{ question.image.url }}">
-
-                                  </div>
-                                </div>
-                            </div>
-                            </div>
-
-   {% endif %}
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>No polls are available.</p>
         {% endif %}
+        {% endfor %}
+    </div>
+    <br>
+    <br>
 
+    <h1 class="text-center mb-4">Club-wise Poll</h1>
+    <div class="row">
+        {% for question in latest_question_list %}
+        {% if question.club == user.profile.club %}
+        <div class="col-lg-3 col-md-4 col-sm-10 mx-auto">
+            <div class="card shadow-sm mb-3">
+                <div class="col-sm-12">
+                    <img class="img-fluid " src="{{ question.image.url }}">
+                </div>
+                <div class="card-body text-dark">
+                    <h5 class=" py-3 mb-2 rounded text-center">{{ question.question_text }}</h5>
+                    <p class="card-text">Quick sample text to create the card title and make up the body of the card's
+                        content.</p>
+
+                    <p class="text-center"><a href="{% url 'polls:detail' question.id %}">Click here to vote</a></p>
+                    <p class="text-center"><a href="{% url 'polls:results' question.id %}">Click here to view Results </a> </p>
+                </div>
+            </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+
+    </div>
+
+    {% else %}
+    <p>No polls are available.</p>
+    {% endif %}
+</div>
 {% endblock %}
